@@ -16,6 +16,14 @@ En dicho archivo estamos creando los siguientes recursos
 
 -Lo primero que vamos a realizar es validar que haya un body presente en nuestra request
 
--verificar que los campos dentro de nuestro body sean los correctos (Solamente vamos a pedir el nombre del archivo y el tipo de archivo que el usuario necesita subir, pero podemos pedir mas cosas como por ejemplo el tamaño del archivo). Si las validaciones no pasan, enviaremos una respuesta 400 Bad Request.
+-verificar que los campos dentro de nuestro body sean los correctos 
+(Solamente vamos a pedir el nombre del archivo y el tipo de archivo que el
+ usuario necesita subir, pero podemos pedir mas cosas como por ejemplo el 
+ tamaño del archivo).
+  Si las validaciones no pasan, enviaremos una respuesta 400 Bad Request.
 
--Usaremos la funcion getSignedUrlPromise para obtener la url firmada y se la daremos al usuario como respuesta. Notar que le pasamos como parametros el nombre del archivo, el tipo de archivo, el bucket en cuestion (usando la variable de entorno que disponibilizamos en el serverless.yml) y el tiempo que la url va a estar activa. Luego le indicamos la accion (en este caso es para subir un archivo)
+-Usaremos la funcion getSignedUrlPromise para obtener la url firmada y se la daremos al usuario como respuesta. 
+Notar que le pasamos como parametros el nombre del archivo, el tipo de 
+archivo, el bucket en cuestion (usando la variable de entorno que 
+disponibilizamos en el serverless.yml) y el tiempo que la url va a estar activa. 
+Luego le indicamos la accion (en este caso es para subir un archivo)
