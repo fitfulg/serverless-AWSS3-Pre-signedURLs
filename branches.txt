@@ -1,0 +1,11 @@
+1-yml config:
+
+En dicho archivo estamos creando los siguientes recursos
+
+-Un bucket S3, el cual sera el lugar donde guardaremos nuestros archivos
+
+-Una lambda disparada por un POST Request sobre el path /api/upload
+
+-Para obtener el URL firmado, debemos darle a nuestra aplicacion el permiso s3:putObject
+
+-Disponibilizamos una variable de entorno con el nombre de nuestro bucket para poder utilizarlo mas adelante en nuestro codigo
