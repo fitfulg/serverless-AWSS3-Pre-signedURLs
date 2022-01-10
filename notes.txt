@@ -79,3 +79,15 @@ Creamos nuestra nueva lambda, la cual llamaremos getFile y su evento de disparo 
 Ademas, agregamos que nuestra aplicacion tenga permisos para leer archivos,
 listar los archivos del bucket y el permiso headObject no solo al bucket S3
 sino a todos los archivos dentro del bucket.
+
+
+En la funcion, primero vamos a corroborar que nos hayan enviado el nombre del archivo por queryString params. 
+
+Luego vamos a consultar al bucket la metadata de ese archivo utilizando el metodo headObject. 
+Este metodo es muy util para corroborar si el archivo existe o no. EN caso 
+de no existir ese metodo va a tirarnos un error con un codigo “NotFound”,
+ el cual atajaremos en el catch de la funcion.
+
+Si el archivo existe, no arrojará ningun error y entonces podremos obtener la URL Firmada, esta vez, con la action de getObject. una vez obtenida la 
+URL la devolvemos con un 200.
+æ
