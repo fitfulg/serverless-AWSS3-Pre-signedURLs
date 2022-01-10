@@ -27,3 +27,55 @@ Notar que le pasamos como parametros el nombre del archivo, el tipo de
 archivo, el bucket en cuestion (usando la variable de entorno que 
 disponibilizamos en el serverless.yml) y el tiempo que la url va a estar activa. 
 Luego le indicamos la accion (en este caso es para subir un archivo)
+
+----------------------
+
+3- login to AWS Control Tower con las credenciales temporales
+
+----------------------
+
+4-postman request
+
+-Notar que estamos ejecutando un Post Request y pasandole como body lo siguiente
+
+
+{
+    "fileName": "sample.jpg",
+    "contentType": "image/jpeg"
+}
+
+vamos a obtener como respuesta lo siguiente
+{
+    "url": "https:// ... "
+}
+
+Copiamos esa URL y creamos una nueva Request HTTP con Postman. 
+Esta vez va a ser un PUT Request y en la seccion de body elegimos un bynari
+ y elegimos nuestro archivo jpg. Deberiamos recibir una respuesta 200.
+
+--------------------------
+
+5-modificar archivo serverles 
+
+Si copiamos la url en una pestaña de nuestro navegador vamos a encontrarnos con el siguiente mensaje: ACCESS DENIED
+
+la estrategia que vamos a hacer es la misma que usamos para escribir el archivo en el bucket. 
+vamos a pedir a un endpoint de nuestro backend que queremos leer el archivo
+y vamos a recibir una URL que, al hacerle un GET Request nos permitira 
+obtener la imagen.
+
+Vamos a crear una nueva lambda entonces que recibira el nombre del archivo
+ que queremos leer y si el archivo existe, vamos a devolverle al usuario la
+  URL con los permisos necesarios para que pueda leerla.
+
+pero antes modificamos el archivo serverless.yml 
+
+--------------------------
+
+6-nueva lambda
+
+Creamos nuestra nueva lambda, la cual llamaremos getFile y su evento de disparo sera un HTTP Get Request al path /api/file.
+
+Ademas, agregamos que nuestra aplicacion tenga permisos para leer archivos,
+listar los archivos del bucket y el permiso headObject no solo al bucket S3
+sino a todos los archivos dentro del bucket.
