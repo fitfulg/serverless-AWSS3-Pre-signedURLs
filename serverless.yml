@@ -1,0 +1,35 @@
+service: ercardona-workshop6
+
+frameworkVersion: '2'
+
+custom:
+  sourceBucketName: ${self:service}-${self:provider.stage}-sourcebucket
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: us-east-1
+  environment:
+    SOURCE_BUCKET_NAME: ${self:custom.sourceBucketName}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - 's3:putObject'
+      Resource: 'arn:aws:s3:::${self:custom.sourceBucketName}/*'
+
+functions:
+  upload-request:
+    handler: src/handlers/uploadRequest/index.handler
+    events:
+      - httpApi:
+          path: /api/upload
+          method: post
+
+resources:
+  Resources:
+    InputBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.sourceBucketName}
